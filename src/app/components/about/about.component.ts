@@ -13,7 +13,7 @@ import { actionBlogpost, actionPage } from 'src/app/store/actions/state.actions'
 export class AboutComponent implements OnInit, AfterContentInit {
 
   constructor(private cs: ContentstackQueryService, private seo: SeoService, private metaTagService: Meta, private store: Store) { }
-  page = 'About';
+  page = 'Account Holder';
   aboutContent: any = {};
   filterObject(inputObject) {
     const unWantedProps = [
@@ -37,13 +37,9 @@ export class AboutComponent implements OnInit, AfterContentInit {
     return inputObject;
   }
   getEntry() {
-    this.cs.getEntryWithQuery('page', { key: 'url', value: '/about-us' }, [],
-      ["page_components.section_with_buckets.buckets.description",]).then(entry => {
-        this.aboutContent = entry[0][0];
-        const jsonData = this.filterObject(entry[0][0])
-        this.store.dispatch(actionPage({ page: jsonData }));
-        this.store.dispatch(actionBlogpost({ blogpost: null }));
-        if (this.aboutContent.seo) { this.seo.getSeoField(this.aboutContent.seo, this.metaTagService); }
+    this.cs.getEntryById('form_page', 'blt5fa43063704a61eb', [],
+      []).then(entry => {
+        this.aboutContent = entry;
       }, err => {
         console.log(err, 'err');
       });

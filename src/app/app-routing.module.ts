@@ -5,10 +5,12 @@ import { HomeComponent } from './components/home/home.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { ArticleComponent } from './components/article/article.component';
 import { ErrorComponent } from './components/error/error.component';
+import { AboutComponent } from './components/about/about.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'blog', component: BlogComponent },
+  { path: 'about-us', component: AboutComponent },
   {
     path: 'blog/:id', component: ArticleComponent,
     children: [{

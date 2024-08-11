@@ -33,6 +33,26 @@ export class ContentstackQueryService {
       });
   }
 
+  getEntryById(contentTypeUid: string, entryUid: string, references = [], jsonRtePath = []): Promise<any> {
+    
+    return this.cs.stack().contentstack.entry
+      .Query()
+      .includeReference(references)
+      .toJSON()
+      .find()
+      .then(entry => {
+        jsonRtePath.length > 0 &&
+          Utils.jsonToHTML({
+            entry,
+            paths: jsonRtePath,
+            renderOption: this.renderOption,
+          });
+        return entry;
+      }, err => {
+        console.log(err, 'err');
+      });
+  }
+
   getEntryWithQuery(contentTypeUid: string, { key, value }, references = [], jsonRtePath = []): Promise<any> {
     return this.cs.stack().contentstack.ContentType(contentTypeUid)
       .Query()
